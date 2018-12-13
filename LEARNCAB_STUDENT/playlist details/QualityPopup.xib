@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="QualityPopup" customModule="LearnCab" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="170" height="60"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Quality" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tUc-G9-uRV">
+                    <rect key="frame" x="4" y="20" width="57" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="21" id="kYG-o1-Cqd"/>
+                        <constraint firstAttribute="width" constant="57" id="m7a-bj-EdE"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MaP-IR-vFZ">
+                    <rect key="frame" x="64" y="7" width="97" height="46"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vj7-P2-8eI">
+                            <rect key="frame" x="-8" y="-6" width="114" height="59"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Button"/>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="7qm-F7-2PL"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="tUc-G9-uRV" secondAttribute="bottom" constant="19" id="7C7-Jl-ghn"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="MaP-IR-vFZ" secondAttribute="bottom" constant="7" id="BA0-oa-kZf"/>
+                <constraint firstItem="MaP-IR-vFZ" firstAttribute="leading" secondItem="tUc-G9-uRV" secondAttribute="trailing" constant="3" id="JCo-Gq-PcM"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MaP-IR-vFZ" secondAttribute="trailing" constant="9" id="OcA-Wh-MqK"/>
+                <constraint firstItem="tUc-G9-uRV" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="YsM-pw-Msa"/>
+                <constraint firstItem="tUc-G9-uRV" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="4" id="eBQ-lp-Nl5"/>
+                <constraint firstItem="MaP-IR-vFZ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="7" id="jXl-cM-MIH"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="dropdown" destination="MaP-IR-vFZ" id="KX1-FN-8A4"/>
+                <outlet property="okbtn" destination="Vj7-P2-8eI" id="AQm-0L-33b"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="51"/>
+        </view>
+    </objects>
+</document>

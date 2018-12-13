@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Poppins-Regular.ttf">
+            <string>Poppins-Regular</string>
+        </array>
+        <array key="Poppins-SemiBold.ttf">
+            <string>Poppins-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" restorationIdentifier="CreditPopup" id="iN0-l3-epB" customClass="CreditPopup" customModule="LearnCab" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="280" height="240"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_bell_60.png" translatesAutoresizingMaskIntoConstraints="NO" id="RtL-Um-IsJ">
+                    <rect key="frame" x="115" y="24" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="McT-UU-u6K"/>
+                        <constraint firstAttribute="height" constant="50" id="zLn-QL-5jS"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Watch is video, 1  Credit will be deducted from your account. " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FPk-4z-Qg6">
+                    <rect key="frame" x="0.0" y="85" width="280" height="84"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="84" id="Wea-Qe-Qrq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Poppins-Regular" family="Poppins" pointSize="12"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s3K-Cq-Uuo" customClass="RoundButton">
+                    <rect key="frame" x="149" y="186" width="113" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="eA0-bF-T5f"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                    <state key="normal" title="OK">
+                        <color key="titleColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="MaskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="Radius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8ZI-Xb-2qx" customClass="RoundButton">
+                    <rect key="frame" x="18" y="186" width="113" height="41"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="41" id="TeS-gW-DL1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="Poppins-SemiBold" family="Poppins" pointSize="16"/>
+                    <state key="normal" title="Cancel">
+                        <color key="titleColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="MaskToBounds" value="YES"/>
+                        <userDefinedRuntimeAttribute type="number" keyPath="Radius">
+                            <real key="value" value="20"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="FPk-4z-Qg6" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="0bw-I2-dIz"/>
+                <constraint firstItem="8ZI-Xb-2qx" firstAttribute="width" secondItem="s3K-Cq-Uuo" secondAttribute="width" id="34q-yx-8ni"/>
+                <constraint firstItem="FPk-4z-Qg6" firstAttribute="top" secondItem="RtL-Um-IsJ" secondAttribute="bottom" constant="11" id="3xg-Ze-8aj"/>
+                <constraint firstItem="FPk-4z-Qg6" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="59n-g3-pgs"/>
+                <constraint firstItem="8ZI-Xb-2qx" firstAttribute="top" secondItem="FPk-4z-Qg6" secondAttribute="bottom" constant="17" id="CeB-BF-Mvp"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8ZI-Xb-2qx" secondAttribute="bottom" constant="13" id="KOC-gK-tte"/>
+                <constraint firstItem="RtL-Um-IsJ" firstAttribute="centerX" secondItem="FPk-4z-Qg6" secondAttribute="centerX" id="j1d-e7-tlR"/>
+                <constraint firstItem="s3K-Cq-Uuo" firstAttribute="top" secondItem="FPk-4z-Qg6" secondAttribute="bottom" constant="17" id="jbh-Vn-Kbs"/>
+                <constraint firstItem="RtL-Um-IsJ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="24" id="lvi-dW-TTV"/>
+                <constraint firstItem="8ZI-Xb-2qx" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="18" id="m6U-l2-qCU"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="s3K-Cq-Uuo" secondAttribute="bottom" constant="13" id="tf0-b9-Fvk"/>
+                <constraint firstItem="s3K-Cq-Uuo" firstAttribute="leading" secondItem="8ZI-Xb-2qx" secondAttribute="trailing" constant="18" id="vMV-Th-zdg"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="s3K-Cq-Uuo" secondAttribute="trailing" constant="18" id="y7y-QH-dTs"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="cancle" destination="8ZI-Xb-2qx" id="iKg-tq-t8b"/>
+                <outlet property="creditlab" destination="FPk-4z-Qg6" id="agD-0G-SRO"/>
+                <outlet property="okbtn" destination="s3K-Cq-Uuo" id="7Hl-AP-LB4"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_bell_60.png" width="60" height="60"/>
+    </resources>
+</document>
