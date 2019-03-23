@@ -33,7 +33,7 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
     @IBOutlet weak var sendbtn : UIButton!
     @IBOutlet weak var textview : UITextView!
     @IBOutlet weak var senderimg : UIImageView!
-    @IBOutlet var tableviewheight : NSLayoutConstraint!
+    @IBOutlet var scrollview : UIScrollView!
      @IBOutlet weak var heightLayoutConstraint: NSLayoutConstraint!
      @IBOutlet var detailswebviewheight : NSLayoutConstraint!
     
@@ -71,8 +71,10 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         indexstr = "0"
         contentHeights = [0.0,0.0]
          self.navigationController?.navigationBar.isHidden = true
-        firstView.isHidden = true
+        self.navigationItem.hidesBackButton = true
+        firstView.isHidden = false
         secondView.isHidden = true
+        scrollview.isHidden = true
         firstemptyView.isHidden = true
         secondemptylab.isHidden = true
         tokenstr = UserDefaults.standard.string(forKey: "tokens")
@@ -85,7 +87,7 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
             student_id = newResult["_id"] as! String
             print(student_id)
         }
-        self.imgarr = [UIImage(named: "lc_sel.png")!, UIImage(named: "ic_lectures_inactive.png")!, UIImage(named: "ic_qan_inactive.png")!]
+        self.imgarr = [ UIImage(named: "ic_lectures_inactive.png")!,UIImage(named: "lc_sel.png")!, UIImage(named: "ic_qan_inactive.png")!]
         
         print(descript)
        
@@ -108,10 +110,10 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         UserDefaults.standard.synchronize()
         
         secondtableview.estimatedRowHeight = 200
-        secondtableview.rowHeight = UITableViewAutomaticDimension
+        secondtableview.rowHeight = UITableView.automaticDimension
         
-        self.lecturelistlink()
-       
+       // self.lecturelistlink()
+       self.lecturelink()
         
         let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.totalcreditlink), userInfo: nil, repeats: false)
         // Do any additional setup after loading the view.
@@ -123,7 +125,7 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         else
         {
             indexstr = "1"
-            collectionindex = 1
+            collectionindex = 0
             //self.chapCollectionView.scrollToItem(at: collectionindex, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
             self.chapCollectionView.reloadData()
             self.firstView.isHidden = false
@@ -175,11 +177,12 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
             cell.underLine.isHidden = false
             if indexstr == "0"
             {
-                 cell.img.image = UIImage.init(named: "ic_my_course_info_active.png")
+                cell.img.image = UIImage.init(named: "ic_lectures_active.png")
             }
             else if indexstr == "1"
             {
-                cell.img.image = UIImage.init(named: "ic_lectures_active.png")
+                cell.img.image = UIImage.init(named: "ic_my_course_info_active.png")
+                
             }
             else if indexstr == "2"
             {
@@ -198,30 +201,34 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         {
             indexstr = "0"
             collectionindex = indexPath.item
-            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             self.chapCollectionView.reloadData()
-            self.firstView.isHidden = true
+            self.firstView.isHidden = false
             self.secondView.isHidden = true
-            self.lecturelistlink()
+            self.scrollview.isHidden = true
+            self.lecturelink()
+            
         }
         else if indexPath.row == 1
         {
             indexstr = "1"
             collectionindex = indexPath.item
-            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             self.chapCollectionView.reloadData()
-            self.firstView.isHidden = false
+            self.firstView.isHidden = true
             self.secondView.isHidden = true
-            self.lecturelink()
+            self.scrollview.isHidden = false
+            self.lecturelistlink()
         }
         else if indexPath.row == 2
         {
             indexstr = "2"
             collectionindex = indexPath.item
-            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+            self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
             self.chapCollectionView.reloadData()
             self.firstView.isHidden = true
             self.secondView.isHidden = false
+            self.scrollview.isHidden = true
             self.questionlink()
         }
     }
@@ -252,10 +259,22 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         }
        
     }
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-//    {
-//        return UITableViewAutomaticDimension;
-//    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        if tableView == firsttableview
+        {
+            return 90.5
+        }
+        else if tableView == secondtableview
+        {
+            return UITableView.automaticDimension;
+        }
+        else
+        {
+            return UITableView.automaticDimension;
+        }
+
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -398,8 +417,8 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
                 KGModal.sharedInstance().tapOutsideToDismiss = true
                 //print(booklistarr.count)
                 sponser.okbtn.tag = indexPath.row + 123
-                sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControlEvents.touchUpInside)
-                sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControlEvents.touchUpInside)
+                sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControl.Event.touchUpInside)
+                sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControl.Event.touchUpInside)
             }
             else
             {
@@ -436,8 +455,8 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
                     KGModal.sharedInstance().tapOutsideToDismiss = false
                     //print(booklistarr.count)
                     sponser.okbtn.tag = indexPath.row + 123
-                    sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControlEvents.touchUpInside)
-                    sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControlEvents.touchUpInside)
+                    sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControl.Event.touchUpInside)
+                    sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControl.Event.touchUpInside)
                 }
             }
         }
@@ -619,9 +638,9 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
                     self.textview.text = ""
                     self.questionlink()
                     self.view.endEditing(true)
-                    let myAlert = UIAlertController(title:"LearnCab", message: "Please Wait for Admin Approve", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"LearnCab", message: "Please Wait for Admin Approve", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)
@@ -677,8 +696,8 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
                     //print(booklistarr.count)
                     self.sponser1.creditlab.text = res
                     //sponser1.okbtn.tag = indexPath.row + 123
-                    self.sponser1.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.cancel(sender:)), for: UIControlEvents.touchUpInside)
-                    self.sponser1.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.ok(sender:)), for: UIControlEvents.touchUpInside)
+                    self.sponser1.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.cancel(sender:)), for: UIControl.Event.touchUpInside)
+                    self.sponser1.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.ok(sender:)), for: UIControl.Event.touchUpInside)
                  
                 }
                 SVProgressHUD.dismiss()
@@ -724,9 +743,9 @@ class LecturesDetailsViewController: UIViewController,UICollectionViewDelegate,U
         self.questionstr = textview.text!
         if self.questionstr == ""
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "Please enter question", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "Please enter question", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)

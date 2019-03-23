@@ -183,7 +183,7 @@ class MyClass: NSObject {
 
     func changeimagecolor(fromimage image:UIImage,withcolor color:UIColor) -> UIImage
     {
-        var newImage = image.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        var newImage = image.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale);
         color.set()
         newImage.draw(in: CGRect(x: 0, y: 0, width: image.size.width, height: image.size.height))

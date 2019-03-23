@@ -41,19 +41,8 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
             self.email.text = newResult["email"] as! String
             passuserid = newResult["_id"] as! String
             print(passuserid)
-            
-            
+            UIApplication.shared.statusBarStyle = .lightContent
         }
-        //let img = UserDefaults.standard.string(forKey: "Profile")
-       
-//        if img == "" || img == nil
-//        {
-//            self.image.image = UIImage.init(named: "profile_unselect.png")
-//        }
-//        else
-//        {
-//            self.image.sd_setImage(with: URL(string: img!))
-//        }
         
         menuarra = NSMutableArray()
         menuarra.add("MY COURSES");
@@ -208,7 +197,7 @@ class SideMenuViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBAction func logoutbutton(_sender : UIButton)
     {
         
-        let uiAlert = UIAlertController(title: "LOGOUT", message: "Do you want to Logout?", preferredStyle: UIAlertControllerStyle.alert)
+        let uiAlert = UIAlertController(title: "LOGOUT", message: "Do you want to Logout?", preferredStyle: UIAlertController.Style.alert)
         self.present(uiAlert, animated: true, completion: nil)
         
         uiAlert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { action in

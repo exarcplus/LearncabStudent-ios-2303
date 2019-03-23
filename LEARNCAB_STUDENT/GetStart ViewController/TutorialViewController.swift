@@ -10,8 +10,6 @@ import UIKit
 
 class TutorialViewController: UIViewController {
 
-
-
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var skipBtn: UIButton!
@@ -26,6 +24,9 @@ class TutorialViewController: UIViewController {
         super.viewDidLoad()
          self.navigationController?.navigationBar.isHidden = true
         pageControl.addTarget(self, action: Selector(("didChangePageControlValue")), for: .valueChanged)
+        let clr  = UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1)
+        UIApplication.shared.statusBarView?.backgroundColor = clr
+        UIApplication.shared.statusBarStyle = .lightContent
     }
     
      func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

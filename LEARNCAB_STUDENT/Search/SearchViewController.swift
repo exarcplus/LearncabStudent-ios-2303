@@ -38,7 +38,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 60.0 //you can provide any
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         self.tableView.register(UINib (nibName: "SearchBarCell", bundle: nil), forCellReuseIdentifier: "searchBarCell")
         self.dismissButton.addTarget(self, action: #selector(SearchViewController.dismissView), for: .touchUpInside)
@@ -117,7 +117,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     }
     func makeAttributedString(title: String) -> NSAttributedString {
         //let titleAttributes = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline), NSAttributedStringKey.foregroundColor: UIColor.black]
-        let titleAttributes = [NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: .subheadline)]
+        let titleAttributes = [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .subheadline)]
         
         let titleString = NSMutableAttributedString(string: "\(title)\n", attributes: titleAttributes)
         //let subtitleString = NSAttributedString(string: subtitle, attributes: subtitleAttributes)
@@ -129,7 +129,7 @@ class SearchViewController: UIViewController, UISearchBarDelegate, UITableViewDe
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return UITableViewAutomaticDimension;
+        return UITableView.automaticDimension;
     }
     
     @available(iOS 2.0, *)

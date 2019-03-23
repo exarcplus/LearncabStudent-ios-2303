@@ -48,9 +48,9 @@ class OtpScreenViewController: UIViewController {
                 
             }
             else{
-                let myAlert = UIAlertController(title:"LearnCab", message: "otp incorrect", preferredStyle: UIAlertControllerStyle.alert)
+                let myAlert = UIAlertController(title:"LearnCab", message: "otp incorrect", preferredStyle: UIAlertController.Style.alert)
                 
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                 
                 myAlert.addAction(okAction)
                 self.present(myAlert, animated: true, completion: nil)
@@ -83,9 +83,9 @@ class OtpScreenViewController: UIViewController {
         }
         else
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "otp incorrect", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "otp incorrect", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)

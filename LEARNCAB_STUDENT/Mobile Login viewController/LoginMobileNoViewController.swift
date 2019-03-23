@@ -20,7 +20,9 @@ class LoginMobileNoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          self.navigationController?.navigationBar.isHidden = true;
-        // Do any additional setup after loading the view.
+        let clr  = UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1)
+        UIApplication.shared.statusBarView?.backgroundColor = clr
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
     override func didReceiveMemoryWarning() {
@@ -64,9 +66,9 @@ class LoginMobileNoViewController: UIViewController {
         
         if emailtxt.text == ""
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Your MobilNumber", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Your MobilNumber", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
@@ -75,9 +77,9 @@ class LoginMobileNoViewController: UIViewController {
         }
         else if passwordtxt.text == ""
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Your MobilNumber", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Your MobilNumber", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
@@ -87,9 +89,9 @@ class LoginMobileNoViewController: UIViewController {
         {
             if !validateEmail(emailtxt.text!)
             {
-                let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertControllerStyle.alert)
+                let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertController.Style.alert)
                 
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                 
                 myAlert.addAction(okAction)
                 self.present(myAlert, animated: true, completion: nil)
@@ -155,7 +157,7 @@ class LoginMobileNoViewController: UIViewController {
                     appDelegate.SideMenu.setLeftViewEnabledWithWidth(240, presentationStyle: .slideAbove, alwaysVisibleOptions: [])
                     appDelegate.SideMenuView = kmainStoryboard.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
                     appDelegate.SideMenu.leftViewStatusBarVisibleOptions = .onAll
-                    appDelegate.SideMenu.leftViewStatusBarStyle = .default
+                    appDelegate.SideMenu.leftViewStatusBarStyle = .lightContent
                     var rect = appDelegate.SideMenuView.view.frame;
                     rect.size.width = 240;
                     appDelegate.SideMenuView.view.frame = rect
@@ -167,9 +169,9 @@ class LoginMobileNoViewController: UIViewController {
                 {
                     //self.emailtxt.text = ""
                     //self.passwordtxt.text = ""
-                    let myAlert = UIAlertController(title:"LearnCab", message: "check your Email And Password", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"LearnCab", message: "check your Email And Password", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)

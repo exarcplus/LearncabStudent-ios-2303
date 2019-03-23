@@ -13,7 +13,7 @@ class GetStartViewController: UIViewController {
     @IBOutlet weak var logbtn : UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         // Do any additional setup after loading the view.
     }
 

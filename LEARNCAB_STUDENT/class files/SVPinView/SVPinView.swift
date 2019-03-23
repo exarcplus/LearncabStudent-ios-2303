@@ -54,7 +54,7 @@ public class SVPinView: UIView {
         
         self.addSubview(view)
         view.frame = bounds
-        view.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        view.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
     }
     
     @objc func textFieldDidChange(_ textField: UITextField) {

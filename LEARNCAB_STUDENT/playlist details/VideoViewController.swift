@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import VGPlayer
-import SnapKit
 import KGModal
 import DropDown
 import SVProgressHUD
@@ -18,7 +16,6 @@ import GoneVisible
 
 var kViewControllerPlaybackServicePolicyKey = "BCpkADawqM2vBBhhvlngk1o5rU1EXNttB6Q7qzZ8RxbIey8ep-7JJjmyWpLP67R7EifVPr63WgN9qkdyDiOmF5oSLTaXbB5k6lO19VrHnm_7vVoRliKnqTOIJK98w9zMLbYl41duH8vQd51k"
 var kViewControllerAccountID = "5797077890001"
-//var kViewControllerVideoID = "5818884618001"
 
 class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackControllerDelegate {
 
@@ -63,44 +60,37 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
     
     var controllername : String!
     required init?(coder aDecoder: NSCoder) {
-        
-        
         playbackController = (sharedSDKManager?.createPlaybackController())!
         super.init(coder: aDecoder)
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
         playbackController.isAutoPlay = true
         playbackController.setAllowsExternalPlayback(true)
-        //playerView?.playbackController = playbackController
     }
     
     @IBOutlet var detailswebviewheight : NSLayoutConstraint!
     var curentTime : Double!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         print(viewstr)
-        
-        //SVProgressHUD.show()
         
         let i = navigationController?.viewControllers.index(of: self)
         UserDefaults.standard.set(i, forKey:"nav")
         UserDefaults.standard.synchronize()
         
         UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         var colors = [UIColor]()
         colors.append(UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1))
         colors.append(UIColor(red: 28/255, green: 154/255, blue: 96/255, alpha: 1))
         navigationController?.navigationBar.setGradientBackground(colors: colors)
-        
 
         self.navigationController?.navigationBar.isHidden = false
         
         var options = BCOVPUIPlayerViewOptions()
         options.presentingViewController = self
         var controlsView = BCOVPUIBasicControlView.withVODLayout()
-        
-        
         
         // Set up our player view. Create with a standard VOD layout.
         var playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: controlsView)
@@ -121,13 +111,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
         self.Prevview.isHidden = true
         self.NXview.isHidden = true
         self.Npview.isHidden = true
-       
-      
-//        self.webview.delegate = self
-//        let font = UIFont.init(name: "Poppins-Light", size: 14)
-//        webview.scrollView.isScrollEnabled = true
-//        webview.backgroundColor = .clear
-//        self.webview.loadHTMLString(content, baseURL: nil)
       
     }
     
@@ -136,7 +119,7 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
         self.navigationItem.title = "VIDEO"
         self.navigationController?.navigationBar.isHidden = false
         UINavigationBar.appearance().tintColor = UIColor.white
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
     }
     
     
@@ -177,7 +160,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
             self.Npview.isHidden = false
         }
     }
-    
     
     @objc func handleScreenModeButton(_ sender: Any) {
         if landscapeOnly == true {
@@ -226,7 +208,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
             self.navigationController?.setNavigationBarHidden(false, animated: true)
         }
         else{
-            // self.navigationController?.setNavigationBarHidden(true, animated: true)
             landscapeOnly = true
             
             self.Prevview.isHidden = true
@@ -295,21 +276,15 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
     
     @IBAction func backbutton(_sender: UIButton)
     {
-//        let viewControllers: [UIViewController] = self.navigationController!.viewControllers
-//        for aViewController in viewControllers {
-//            if aViewController is PlaylistViewController {
-//                self.navigationController!.popToViewController(aViewController, animated: true)
-//            }
-//        }
         self.navigationController?.popViewController(animated: true)
     }
     
     
     @IBAction func next(_ sender: UIButton)
     {
-       // SVProgressHUD.show()
         indexpath = indexpath+1
         print(indexpath)
+        playbackController.allowsBackgroundAudioPlayback = false
         playbackController.pause()
         let  urlstr = self.arrlist[indexpath] as! String
         let url1 : String = urlstr
@@ -318,7 +293,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
         let imageExtensions = ["png", "jpg", "gif"]
         let videoExtentions = ["mp4","mov"]
         let notesExtentions = ["svg","pdf","doc","zip"]
-//        let pdfExtentions = ["pdf","doc","zip"]
         let htmlExtentions = ["html"]
         if imageExtensions.contains(pathExtention!)
         {
@@ -374,10 +348,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
                 mainview.controllername = self.controllername
             self.navigationController?.pushViewController(mainview, animated:true)
         }
-//        else if pdfExtentions.contains(pathExtention!)
-//        {
-//
-//        }
         else if htmlExtentions.contains(pathExtention!)
         {
             let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "QuizViewController") as! QuizViewController
@@ -423,6 +393,7 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
        // SVProgressHUD.show()
         indexpath = indexpath-1
         print(indexpath)
+         playbackController.allowsBackgroundAudioPlayback = false
          playbackController.pause()
         let  urlstr = self.arrlist[indexpath] as! String
         let url1 : String = urlstr
@@ -487,10 +458,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
                 mainview.controllername = self.controllername
             self.navigationController?.pushViewController(mainview, animated:true)
         }
-//        else if pdfExtentions.contains(pathExtention!)
-//        {
-//
-//        }
         else if htmlExtentions.contains(pathExtention!)
         {
             let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "QuizViewController") as! QuizViewController
@@ -533,9 +500,9 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
     
     @IBAction func next1(_ sender: UIButton)
     {
-       // SVProgressHUD.show()
         indexpath = indexpath+1
         print(indexpath)
+         playbackController.allowsBackgroundAudioPlayback = false
          playbackController.pause()
         let  urlstr = self.arrlist[indexpath] as! String
         let url1 : String = urlstr
@@ -600,10 +567,6 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
                 mainview.controllername = self.controllername
             self.navigationController?.pushViewController(mainview, animated:true)
         }
-//        else if pdfExtentions.contains(pathExtention!)
-//        {
-//           
-//        }
         else if htmlExtentions.contains(pathExtention!)
         {
             let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "QuizViewController") as! QuizViewController
@@ -646,6 +609,7 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
     
     @IBAction func previous1(_ sender: UIButton)
     {
+         playbackController.allowsBackgroundAudioPlayback = false
           playbackController.pause()
       
         let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "PlaylistViewController") as! PlaylistViewController
@@ -668,11 +632,5 @@ class VideoViewController: UIViewController,UIWebViewDelegate , BCOVPlaybackCont
             print("Selected item: \(item) at index: \(index)")
         }
     }
-    
- 
-//    // MARK:- MKDropdownMenuDataSource
-
-
-    
 }
 

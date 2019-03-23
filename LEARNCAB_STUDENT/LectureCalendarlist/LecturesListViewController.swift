@@ -121,7 +121,7 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
         Tabbar.frame = CGRect(x: 0, y: 0,width: UIScreen.main.bounds.size.width, height: Tabbarview.frame.size.height);
         Tabbarview.addSubview(Tabbar)
         
-        listtable.rowHeight = UITableViewAutomaticDimension
+        listtable.rowHeight = UITableView.automaticDimension
         listtable.estimatedRowHeight = 160
         
         // Do any additional setup after loading the view.
@@ -275,7 +275,7 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
     {
         self.bookDate.removeAll()
         collectionindex = indexPath.item
-        self.collectionview.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+        self.collectionview.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
         self.collectionview.reloadData()
         let datestring = datearr[indexPath.row]
         print(datestring)
@@ -309,7 +309,7 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return UITableViewAutomaticDimension;
+        return UITableView.automaticDimension;
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
@@ -396,8 +396,8 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
                 KGModal.sharedInstance().tapOutsideToDismiss = false
                 //print(booklistarr.count)
                 sponser.okbtn.tag = indexPath.row + 123
-                sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControlEvents.touchUpInside)
-                sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControlEvents.touchUpInside)
+                sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControl.Event.touchUpInside)
+                sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControl.Event.touchUpInside)
             }
             else
             {
@@ -433,8 +433,8 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
                     KGModal.sharedInstance().tapOutsideToDismiss = false
                     //print(booklistarr.count)
                     sponser.okbtn.tag = indexPath.row + 123
-                    sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControlEvents.touchUpInside)
-                    sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControlEvents.touchUpInside)
+                    sponser.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.closebutton(sender:)), for: UIControl.Event.touchUpInside)
+                    sponser.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.okbutton(sender:)), for: UIControl.Event.touchUpInside)
                 }
             }
     }
@@ -604,8 +604,8 @@ class LecturesListViewController: UIViewController,UICollectionViewDelegate,UICo
                     //print(booklistarr.count)
                     self.sponser1.creditlab.text = res
                     //sponser1.okbtn.tag = indexPath.row + 123
-                    self.sponser1.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.cancel(sender:)), for: UIControlEvents.touchUpInside)
-                    self.sponser1.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.ok(sender:)), for: UIControlEvents.touchUpInside)
+                    self.sponser1.cancle.addTarget(self, action: #selector(LecturesDetailsViewController.cancel(sender:)), for: UIControl.Event.touchUpInside)
+                    self.sponser1.okbtn.addTarget(self, action: #selector(LecturesDetailsViewController.ok(sender:)), for: UIControl.Event.touchUpInside)
                     
                 }
                 SVProgressHUD.dismiss()

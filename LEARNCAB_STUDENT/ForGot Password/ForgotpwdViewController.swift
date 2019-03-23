@@ -20,7 +20,7 @@ class ForgotpwdViewController: UIViewController {
         colors.append(UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1))
         colors.append(UIColor(red: 28/255, green: 154/255, blue: 96/255, alpha: 1))
         navigationController?.navigationBar.setGradientBackground(colors: colors)
-         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.white]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor : UIColor.white]
         // Do any additional setup after loading the view.
     }
 
@@ -46,9 +46,9 @@ class ForgotpwdViewController: UIViewController {
     {
         if email_text.text == ""
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
@@ -58,9 +58,9 @@ class ForgotpwdViewController: UIViewController {
         {
             if !validateEmail(email_text.text!)
             {
-                let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertControllerStyle.alert)
+                let myAlert = UIAlertController(title:"LearnCab", message: "Enter Valid Email ID", preferredStyle: UIAlertController.Style.alert)
                 
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                 
                 myAlert.addAction(okAction)
                 self.present(myAlert, animated: true, completion: nil)
@@ -89,9 +89,9 @@ class ForgotpwdViewController: UIViewController {
                 print(res as Any)
                 if res == "success"
                 {
-                    let myAlert = UIAlertController(title:"LearnCab", message: "Please check your email for reset password", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"LearnCab", message: "Please check your email for reset password", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)
@@ -99,9 +99,9 @@ class ForgotpwdViewController: UIViewController {
                 }
                 else if res == "failed"
                 {
-                    let myAlert = UIAlertController(title:"LearnCab", message: "Enter your registerd email id", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"LearnCab", message: "Enter your registerd email id", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)

@@ -9,6 +9,7 @@
 import UIKit
 
 class HomeCollectionViewCell: UICollectionViewCell {
+    
     @IBOutlet weak var  imgview : UIImageView!
     @IBOutlet weak var  chpname : UILabel!
     

@@ -55,9 +55,9 @@ class FeedbackViewController: UIViewController {
         print(mesg)
         if mesg == ""
         {
-            let myAlert = UIAlertController(title:"LearnCab", message: "Please Enter Feedback.", preferredStyle: UIAlertControllerStyle.alert)
+            let myAlert = UIAlertController(title:"LearnCab", message: "Please Enter Feedback.", preferredStyle: UIAlertController.Style.alert)
             
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
@@ -99,9 +99,9 @@ class FeedbackViewController: UIViewController {
                 {
                     SVProgressHUD.dismiss()
                     self.textview.text = ""
-                    let myAlert = UIAlertController(title:"LearnCab", message: "Thank you for your feedback.", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"LearnCab", message: "Thank you for your feedback.", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)

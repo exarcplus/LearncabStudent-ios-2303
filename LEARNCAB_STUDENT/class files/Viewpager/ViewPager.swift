@@ -57,12 +57,12 @@ public class ViewPager: UIView {
         scrollView.delegate = self;
         let topContraints = NSLayoutConstraint(item: scrollView, attribute:
             .top, relatedBy: .equal, toItem: self,
-                  attribute: NSLayoutAttribute.top, multiplier: 1.0,
+                  attribute: NSLayoutConstraint.Attribute.top, multiplier: 1.0,
                   constant: 0)
         
         let bottomContraints = NSLayoutConstraint(item: scrollView, attribute:
             .bottom, relatedBy: .equal, toItem: self,
-                     attribute: NSLayoutAttribute.bottom, multiplier: 1.0,
+                     attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0,
                      constant: 0)
         
         let leftContraints = NSLayoutConstraint(item: scrollView, attribute:
@@ -90,12 +90,12 @@ public class ViewPager: UIView {
         
         let heightContraints = NSLayoutConstraint(item: pageControl, attribute:
             .height, relatedBy: .equal, toItem: nil,
-                     attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0,
+                     attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0,
                      constant: 25)
         
         let bottomContraints = NSLayoutConstraint(item: pageControl, attribute:
             .bottom, relatedBy: .equal, toItem: self,
-                     attribute: NSLayoutAttribute.bottom, multiplier: 1.0,
+                     attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0,
                      constant: 0)
         
         let leftContraints = NSLayoutConstraint(item: pageControl, attribute:

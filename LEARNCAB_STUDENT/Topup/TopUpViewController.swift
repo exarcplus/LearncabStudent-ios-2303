@@ -35,7 +35,7 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     var tokenstr : String!
     @IBOutlet var carousel: iCarousel!
     var package_id : String!
-    
+    @IBOutlet var scrollview: UIScrollView!
     
     
     var amount : String!
@@ -90,74 +90,10 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
         carousel.dataSource = self
         carousel.type = .coverFlow
         carousel.isPagingEnabled = true
-        
-//        let item1 = UITabBarItem.init(title:"My Course", image: UIImage.init(named:"mycourseuncolor"), tag: 1)
-//        item1.image = UIImage.init(named: "mycourseuncolor")?.withRenderingMode(.alwaysOriginal)
-//        item1.selectedImage = UIImage.init(named: "mycoursecolor")?.withRenderingMode(.alwaysOriginal)
-//
-//        let item2 = UITabBarItem.init(title:"Lectures", image: UIImage.init(named:"lectureuncolor"), tag: 2)
-//        item2.image = UIImage.init(named: "lectureuncolor")?.withRenderingMode(.alwaysOriginal)
-//        item2.selectedImage = UIImage.init(named: "lecturecolor")?.withRenderingMode(.alwaysOriginal)
-//
-//        let item3 = UITabBarItem.init(title:"Dashboard", image: UIImage.init(named:"dashboarduncolor"), tag: 3)
-//        item3.image = UIImage.init(named: "dashboarduncolor")?.withRenderingMode(.alwaysOriginal)
-//        item3.selectedImage = UIImage.init(named: "dashboardcolor")?.withRenderingMode(.alwaysOriginal)
-//
-//        let item4 = UITabBarItem.init(title:"Packages", image: UIImage.init(named:"packageuncolor"), tag: 4)
-//        item4.image = UIImage.init(named: "packageuncolor")?.withRenderingMode(.alwaysOriginal)
-//        item4.selectedImage = UIImage.init(named: "packgecolor")?.withRenderingMode(.alwaysOriginal)
-//
-//        let item5 = UITabBarItem.init(title:"Profile", image: UIImage.init(named:"profileuncolor"), tag: 5)
-//        item5.image = UIImage.init(named: "profileuncolor")?.withRenderingMode(.alwaysOriginal)
-//        item5.selectedImage = UIImage.init(named:"profilecolor")?.withRenderingMode(.alwaysOriginal)
-//
-//        Tabbar = ZRScrollableTabBar.init(items: [item1,item2,item3,item4,item5])
-//        //       Tabbar.tintColor =  ("#000000")
-//
-//        Tabbar.scrollableTabBarDelegate = self;
-//        Tabbar.selectItem(withTag: 4)
-//        Tabbar.frame = CGRect(x: 0, y: 0,width: UIScreen.main.bounds.size.width, height: Tabbarview.frame.size.height);
-//        Tabbarview.addSubview(Tabbar)
-        
-        
         self.courselink()
         // Do any additional setup after loading the view.
     }
     
-//    func scrollableTabBar(_ tabBar: ZRScrollableTabBar!, didSelectItemWithTag tag: Int32) {
-//        if tag == 1
-//        {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            let currentview = appDelegate.SideMenu.rootViewController as! UINavigationController
-//            appDelegate.SideMenu.hideLeftView(animated: true, completionHandler: nil)
-//            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "HomePageViewController") as! HomePageViewController
-//            currentview.pushViewController(mainview, animated: false)
-//        }
-//        else if tag == 2
-//        {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            let currentview = appDelegate.SideMenu.rootViewController as! UINavigationController
-//            appDelegate.SideMenu.hideLeftView(animated: true, completionHandler: nil)
-//            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "LecturesListViewController") as! LecturesListViewController
-//            currentview.pushViewController(mainview, animated: false)
-//        }
-//        else if tag == 3
-//        {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            let currentview = appDelegate.SideMenu.rootViewController as! UINavigationController
-//            appDelegate.SideMenu.hideLeftView(animated: true, completionHandler: nil)
-//            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "DashboardViewController") as! DashboardViewController
-//            currentview.pushViewController(mainview, animated: false)
-//        }
-//        else if tag == 5
-//        {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            let currentview = appDelegate.SideMenu.rootViewController as! UINavigationController
-//            appDelegate.SideMenu.hideLeftView(animated: true, completionHandler: nil)
-//            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-//            currentview.pushViewController(mainview, animated: false)
-//        }
-//    }
     
     
     @IBAction func backclink (_ sender: UIButton)
@@ -167,7 +103,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
@@ -194,14 +129,11 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         collectionindex = indexPath.item
-        self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+        self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
         self.chapCollectionView.reloadData()
         self.course_id = self.listarr[indexPath.row]["_id"] as! String
         self.droupdownlink()
     }
-    
-    
-    
     
     //package carousel
     func numberOfItems(in carousel: iCarousel) -> Int {
@@ -210,19 +142,11 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     
     func carousel(_ carousel: iCarousel, viewForItemAt index: Int, reusing view: UIView?) -> UIView {
         
-        //        if (view == nil)
-        //        {
         let sponser = Bundle.main.loadNibNamed("TopUpView", owner: self, options: nil)?[0] as! TopUpView
         sponser.frame = CGRect(x: 0, y: 0, width: 280, height: 360)
         
         sponser.layer.cornerRadius = 5.0;
         sponser.layer.masksToBounds = true;
-        //            return sponser;
-        //        }
-        //        else
-        //        {
-        //            let sponser = view as! PackageView
-        //sponser.amountlab.text = self.packagearr[index]["amount"] as? String
         let rupeestr = self.packagearr[index]["amount"] as! String
         if rupeestr == nil || rupeestr == ""
         {
@@ -265,7 +189,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
        
         return sponser;
-        //        }
     }
     
     func carousel(_ carousel: iCarousel, valueFor option: iCarouselOption, withDefault value: CGFloat) -> CGFloat {
@@ -283,10 +206,7 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
         print(packagestatus)
         if packagestatus == "0"
         {
-            
-            //self.paylink()
-        }
-        else{
+        }else{
             let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "RazorpayViewController") as! RazorpayViewController
             mainview.amount = self.packagearr[index]["amount"] as? String
             mainview.tax = self.packagearr[index]["tax"] as? String
@@ -299,14 +219,12 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
         }
     }
     
-    
-    
     @objc func getpackagebutton(sender:UIButton!)
     {
         
-        let myAlert = UIAlertController(title:"LearnCab", message: "Already registered using Email ID", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"LearnCab", message: "Already registered using Email ID", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -339,9 +257,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     //main course link
     func courselink()
     {
-        //        self.course_id = UserDefaults.standard.string(forKey: "course_id")
-        //        print(self.course_id)
-        //let params:[String:String] = [ ]
         let params:[String:String] = ["token":tokenstr]
         SVProgressHUD.show()
         let kLurl = "\(kBaseURL)student_get_courseName"
@@ -412,12 +327,11 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     //packages list link
     func packagelink()
     {
-        
         let params:[String:String] = ["token":tokenstr]
         SVProgressHUD.show()
         let kLurl = "\(kBaseURL)student_package_topups/"
-        Alamofire.request(kLurl+self.course_id+"/?token="+tokenstr, method: .get, parameters: nil).responseJSON { response in
-//         Alamofire.request("http://dev.learncab.com:3012/student_package_topups/5abcd6ea466c1cc09e4f5d13/?token=jbp03sASrYHuVLtG60ktqpNNF", method: .get, parameters: nil).responseJSON { response in
+        let str = student_id+"&token="+tokenstr
+        Alamofire.request(kLurl+course_id+"/?student_id="+str, method: .get, parameters: nil).responseJSON { response in
             print(response)
             
             let result = response.result
@@ -433,8 +347,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
                     {
                         self.carousel.reloadData()
                         self.emptylab.isHidden = true
-                        //                        self.collectionview.reloadData()
-                        //                        self.droupdownlink()
                     }
                     else
                     {
@@ -447,7 +359,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
             
         }
     }
-    
     
     //Razorpay Payment
     func paylink()
@@ -464,13 +375,10 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
         self.showPaymentForm()
     }
     
-    
     func showPaymentForm() {
-        //let img = UIImage.init(named: "studenticon.png")
         let options = [
             "amount" : gstamount,
             "name" : namestr,
-            //"image" : img,
             "prefill" : [
                 "email" : email,
                 "contact" : phoneno
@@ -491,7 +399,6 @@ class TopUpViewController: UIViewController,UICollectionViewDelegate,UICollectio
     func onPaymentError(_ code: Int32, description str: String) {
         UIAlertView.init(title: "Error", message: str, delegate: self, cancelButtonTitle: "OK").show()
         errormsg = str
-        //self.errorlink()
     }
     
     

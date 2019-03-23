@@ -159,10 +159,10 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
         Tabbar.frame = CGRect(x: 0, y: 0,width: UIScreen.main.bounds.size.width, height: Tabbarview.frame.size.height);
         Tabbarview.addSubview(Tabbar)
 
-        if let flowLayout = chapCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        {
-            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
-        }
+//        if let flowLayout = chapCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+//        {
+//            flowLayout.estimatedItemSize = CGSize(width: 100, height: 50)
+//        }
        
         self.intiallink()
        
@@ -182,20 +182,6 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
     func scrollableTabBar(_ tabBar: ZRScrollableTabBar!, didSelectItemWithTag tag: Int32) {
         if tag == 2
         {
-//            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "LecturesListViewController") as! LecturesListViewController
-//            let nav = UINavigationController.init(rootViewController: mainview)
-//            appDelegate.SideMenu = LGSideMenuController.init(rootViewController: nav)
-//            appDelegate.SideMenu.setLeftViewEnabledWithWidth(240, presentationStyle: .slideAbove, alwaysVisibleOptions: [])
-//            appDelegate.SideMenuView = kmainStoryboard.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
-//            appDelegate.SideMenu.leftViewStatusBarVisibleOptions = .onAll
-//            appDelegate.SideMenu.leftViewStatusBarStyle = .default
-//            var rect = appDelegate.SideMenuView.view.frame;
-//            rect.size.width = 240;
-//            appDelegate.SideMenuView.view.frame = rect
-//            appDelegate.SideMenu.leftView().addSubview(appDelegate.SideMenuView.view)
-//            print(appDelegate.SideMenu)
-//            self.present(appDelegate.SideMenu, animated:true, completion: nil)
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let currentview = appDelegate.SideMenu.rootViewController as! UINavigationController
             appDelegate.SideMenu.hideLeftView(animated: true, completionHandler: nil)
@@ -286,12 +272,15 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
        
         if topstr == "0"
         {
-            self.chapCollectionView.reloadData()
+            self.chapCollectionView.isHidden = false
             topstr = "1"
             self.topview.visible()
+            self.chapCollectionView.reloadData()
+            
         }
         else
         {
+            self.chapCollectionView.isHidden = true
             self.topview.gone()
           
             topstr = "0"
@@ -299,13 +288,11 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
         }
     }
     
- //course link
     func intiallink()
     {
         if UserDefaults.standard.string(forKey: "course_id") == nil
         {
             print(tokenstr)
-//        print(passuserid)
             let params:[String:String] = ["token":tokenstr,"lc_student_id":student_id]
             SVProgressHUD.show()
              let kLurl = "\(kBaseURL)login_student_get_course"
@@ -335,6 +322,7 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
                             UserDefaults.standard.synchronize()
                             if self.datasarr.count > 1
                             {
+                                
                                 self.dropimg.isHidden = false
                                 self.couseListBtn.isUserInteractionEnabled = true
                             }
@@ -346,20 +334,14 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
                         
                             self.datalink()
                         }
-                       
                         SVProgressHUD.dismiss()
-                    }
-                    else
-                    {
-                    //self.myclass.ShowsinglebutAlertwithTitle(title: self.myclass.StringfromKey(Key: "LearnCab"), withAlert:self.myclass.StringfromKey(Key: "checkinternet"), withIdentifier:"internet")
+                    }else{
                         SVProgressHUD.dismiss()
                     }
                 }
             SVProgressHUD.dismiss()
             }
-        }
-        else
-        {
+        }else{
             let params:[String:String] = ["token":tokenstr,"lc_student_id":student_id]
             SVProgressHUD.show()
             let kLurl = "\(kBaseURL)login_student_get_course"
@@ -412,11 +394,6 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
     {
         if collectionView == collectionview
         {
-//            if inSearchMode{
-//                print(objectArrayFilter.count)
-//                return objectArrayFilter.count
-//            }
-//            print(objectArray.count)
             return listarr.count
         }
         else if collectionView == chapCollectionView
@@ -447,14 +424,13 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
             let padding : Int = 8
             let collectionCellWidth : CGFloat = (collectionView.frame.size.width/CGFloat(numberOfCellInRow)) - CGFloat(padding)
             cellwidth = collectionCellWidth
-
-            //            return CGSize(width: collectionCellWidth , height: collectionCellWidth)
             return CGSize(width: collectionCellWidth , height: 200)
         }
         }
-        else
-        {
-            let cellsize = CGSize(width: (collectionview.bounds.size.width/2) - 12, height:50)
+        else{
+            let numberOfCellInRow : Int = 4
+            let padding : Int = 8
+            let cellsize = CGSize(width: (chapCollectionView.frame.size.width/CGFloat(numberOfCellInRow)) , height:chapCollectionView.frame.size.height)
             
             return cellsize
         }
@@ -474,59 +450,33 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
             cell.courseName.text = Firststr
         
                 print(self.colorArray)
-        
-//            let color = self.colorArray[indexPath.row]
-//            cell.courseName.backgroundColor = color
-        //let myColor: UIColor = .random
             cell.courseName.backgroundColor = UIColor.random
             cell.chpname.text = self.datasarr[indexPath.row]["course_name"] as! String
             return cell;
-        }
-        else
-        {
+        }else{
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
-            cell.contentView.systemLayoutSizeFitting(UILayoutFittingCompressedSize)
-            cell.chpname.preferredMaxLayoutWidth = 50
             cell.chpname.text = self.listarr[indexPath.row]["chapter"] as! String
             
             let img = self.listarr[indexPath.row]["image"] as! String
-            //let img = "https://static.pexels.com/photos/236636/pexels-photo-236636.jpeg"
             print(img)
             
             if img == ""
             {
                 cell.imgview.image = UIImage.init(named: "dft_img.png")
-            }
-            else
-            {
+            }else{
                 let newString = img.replacingOccurrences(of: " ", with: "%20")
-                //let newString = "https://www.learncab.com/learncab/all_images/chapters/dCSiChbTchinmay-coming-soon.png"
                 print(newString)
                 cell.imgview.sd_setImage(with: URL(string: newString))
-             
-                //cell.imgview.sd_setImage(with: URL(string: newString))
             }
-
             return cell;
         }
       
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//
-//            let cellsize = CGSize(width: (chapCollectionView.bounds.size.width/2) - 12, height:90)
-//
-//            return cellsize
-//
-//    }
-    
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == chapCollectionView
         {
             self.topview.gone()
-            //self.topview.isHidden = true
             self.midview.isHidden = false
             let coursename = self.datasarr[indexPath.row]["course_name"] as! String
             self.courseLable.text = coursename
@@ -537,36 +487,26 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
             UserDefaults.standard.set(courseid, forKey:"course_id")
             UserDefaults.standard.synchronize()
              self.datalink()
-            //self.droupdownlink()
-        }
-        else if collectionView == collectionview
-        {
-
+        }else if collectionView == collectionview{
                 let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "LecturesDetailsViewController") as! LecturesDetailsViewController
+            
+            
             
                 mainview.chapternamestr = self.listarr[indexPath.row]["chapter"] as! String
                 mainview.descript = self.listarr[indexPath.row]["description"] as! String
                 mainview.courid = course_id
                 mainview.chapterid = self.listarr[indexPath.row]["_id"] as! String
-                //self.present(mainview, animated:true, completion: nil)
                self.navigationController?.pushViewController(mainview, animated: true)
-            
                 self.topview.gone()
                 self.midview.isHidden = false
-//            }
         }
     }
     
-   
-    
-    
     @IBAction func paper_clicked(_ sender: UIButton)
     {
-       
-        //self.view.endEditing(true)
+        self.topview.gone()
         ActionSheetStringPicker.show(withTitle: "select the paper", rows: dataarr , initialSelection: 0,doneBlock: {
             picker, value, index in
-            //self.pickercourse.placeholder = ""
             self.chapterlab.text = index as? String
             let paperstr = index as! String
             print(paperstr)
@@ -579,7 +519,6 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
             self.listlink()
             return
         }, cancel: { ActionStringCancelBlock in return }, origin: sender)
-       
     }
     
     
@@ -587,16 +526,12 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
     {
         self.course_id = UserDefaults.standard.string(forKey: "course_id")
         print(self.course_id)
-        //let params:[String:String] = [ ]
         let params:[String:String] = ["token":tokenstr]
         SVProgressHUD.show()
         let kLurl = "\(kBaseURL)student_chapters_filter/"
         Alamofire.request(kLurl+course_id+"/", method: .get, parameters: params).responseJSON { response in
-            
             print(response)
-            
             let result = response.result
-            print(response)
             if let dat = result.value as? Dictionary<String,AnyObject>{
                 if let list = dat["data"] as? [Dictionary<String,AnyObject>]{
                     self.detailarr = list
@@ -604,21 +539,16 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
                     self.dataarr.removeAll()
                     if self.detailarr.count != 0
                     {
-                        
                         for c in 0 ..< self.detailarr.count
                         {
                             let course = self.detailarr[c]["paper"] as! String
                             self.dataarr.append(course)
-//                            let idstr = self.detailarr[c]["course_id"] as! String
-//                            self.idarr.append(idstr)
-//                            print(self.idarr)
                         }
                     }
                     
                 }
             }
             SVProgressHUD.dismiss()
-            
         }
     }
     
@@ -627,32 +557,23 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
     {
         self.course_id = UserDefaults.standard.string(forKey: "course_id")
         print(self.course_id)
-        //let params:[String:String] = [ ]
         let params:[String:String] = ["token":tokenstr]
         SVProgressHUD.show()
          let kLurl = "\(kBaseURL)student_chapters_with_paper/"
         Alamofire.request(kLurl+course_id+"/"+papername+"/", method: .get, parameters: params).responseJSON { response in
-            
             print(response)
-            
             let result = response.result
-            print(response)
             if let dat = result.value as? Dictionary<String,AnyObject>{
                 if let list = dat["data"] as? [Dictionary<String,AnyObject>]{
                     self.listarr = list
                     print(self.listarr)
-
                         self.collectionview.reloadData()
                         self.droupdownlink()
-                   
                 }
             }
             SVProgressHUD.dismiss()
-            
         }
     }
-    
-    
     
     func datalink()
     {
@@ -662,55 +583,35 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
         SVProgressHUD.show()
          let kLurl = "\(kBaseURL)student_chapters/"
         Alamofire.request(kLurl+course_id+"/", method: .get, parameters: params).responseJSON { response in
-            
             print(response)
-            
             let result = response.result
-            print(response)
             if let dat = result.value as? Dictionary<String,AnyObject>{
                 if let list = dat["data"] as? [Dictionary<String,AnyObject>]{
                     self.listarr = list
                     print(self.listarr)
-
                         self.collectionview.reloadData()
                         self.droupdownlink()
-                    
                 }
             }
             SVProgressHUD.dismiss()
-            
         }
     }
-    
-    
-    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         if searchBar.text == nil || searchBar.text == ""
         {
-            
             inSearchMode = false
-            
             view.endEditing(true)
-            
            self.collectionview.reloadData()
-            
         }
         else
         {
-            
             inSearchMode = true
             
-            
             objectArrayFilter = objectArray.filter { $0.Epaper.localizedCaseInsensitiveContains(searchBar.text!) || $0.Echapter.localizedCaseInsensitiveContains(searchBar.text!) || $0.Eunit.localizedCaseInsensitiveContains(searchBar.text!) || $0.Elevel.localizedCaseInsensitiveContains(searchBar.text!)}
-            //            objectArrayFilter = objectArray.filter { $1.Echapter.localizedCaseInsensitiveContains(searchBar.text!) }
-            //            objectArrayFilter = objectArray.filter { $2.Emobile_no.localizedCaseInsensitiveContains(searchBar.text!) }
             print(objectArrayFilter)
-            
             self.collectionview.reloadData()
-            
-            
         }
     }
    
@@ -718,7 +619,7 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
     @IBAction func logoutbutton(_sender : UIButton)
     {
         
-        let uiAlert = UIAlertController(title: "LOGOUT", message: "Do you want to Logout?", preferredStyle: UIAlertControllerStyle.alert)
+        let uiAlert = UIAlertController(title: "LOGOUT", message: "Do you want to Logout?", preferredStyle: UIAlertController.Style.alert)
         self.present(uiAlert, animated: true, completion: nil)
         
         uiAlert.addAction(UIAlertAction(title: "Logout", style: .default, handler: { action in
@@ -739,18 +640,5 @@ class HomePageViewController: UIViewController,UICollectionViewDataSource,UIColl
         }))
         
     }
-    
-    
-  
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 

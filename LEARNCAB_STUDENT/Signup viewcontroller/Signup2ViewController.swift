@@ -198,9 +198,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     {
     if usernametxt.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Firstname", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Firstname", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -209,9 +209,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if lastname.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Lastname", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Lastname", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -220,9 +220,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if emailtxt.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Email", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Email", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -231,9 +231,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if mobiletxt.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Mobile Number", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Mobile Number", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -242,9 +242,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if passwordtxt.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Password", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Password", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -253,9 +253,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if (spain?.count)! < 6
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter minimum 6 Character", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter minimum 6 Character", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -263,9 +263,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if confirmpasswordtxt.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Confirm Password", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your Confirm Password", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -274,9 +274,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if pickercourse.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Select Course", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Select Course", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -285,9 +285,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
     }
     else if pincode.text == ""
     {
-        let myAlert = UIAlertController(title:"Signup", message: "Enter Your PinCode", preferredStyle: UIAlertControllerStyle.alert)
+        let myAlert = UIAlertController(title:"Signup", message: "Enter Your PinCode", preferredStyle: UIAlertController.Style.alert)
         
-        let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
         
         myAlert.addAction(okAction)
         self.present(myAlert, animated: true, completion: nil)
@@ -300,9 +300,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
         {
             if !validateEmail(emailtxt.text!)
             {
-                let myAlert = UIAlertController(title:"Signup", message: "Enter Valid Email ID", preferredStyle: UIAlertControllerStyle.alert)
+                let myAlert = UIAlertController(title:"Signup", message: "Enter Valid Email ID", preferredStyle: UIAlertController.Style.alert)
                 
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                 
                 myAlert.addAction(okAction)
                 self.present(myAlert, animated: true, completion: nil)
@@ -311,9 +311,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
             }
             else if passwordtxt.text != confirmpasswordtxt.text
             {
-                let myAlert = UIAlertController(title:"Signup", message: "Your Password and Confirm Password does not match", preferredStyle: UIAlertControllerStyle.alert)
+                let myAlert = UIAlertController(title:"Signup", message: "Your Password and Confirm Password does not match", preferredStyle: UIAlertController.Style.alert)
                 
-                let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                 
                 myAlert.addAction(okAction)
                 self.present(myAlert, animated: true, completion: nil)
@@ -363,8 +363,6 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
             print(response)
             if let dict = result.value as? Dictionary<String,AnyObject>{
                 print(dict)
-//                let otpstr = dict["verification_code"] as? String
-//                let emailstr = dict["email"] as? String
                 let res = dict["result"] as? String
                 print(res as Any)
                 if res == "success"
@@ -382,9 +380,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
                 else if res == "check your email"
                 {
                     self.view.endEditing(true)
-                    let myAlert = UIAlertController(title:"Signup", message: "Your Email ID Already Registered.", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"Signup", message: "Your Email ID Already Registered.", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)
@@ -396,9 +394,9 @@ class Signup2ViewController: UIViewController, UITextFieldDelegate {
 //                    let nav = UINavigationController.init(rootViewController: mainview)
 //                    self.present(nav, animated:true, completion: nil)
                     //self.view.endEditing(true)
-                    let myAlert = UIAlertController(title:"Signup", message: "check your phone.", preferredStyle: UIAlertControllerStyle.alert)
+                    let myAlert = UIAlertController(title:"Signup", message: "check your phone.", preferredStyle: UIAlertController.Style.alert)
                     
-                    let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
+                    let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
                     
                     myAlert.addAction(okAction)
                     self.present(myAlert, animated: true, completion: nil)

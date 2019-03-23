@@ -37,6 +37,8 @@ class RazorpayViewController: UIViewController,RazorpayPaymentCompletionProtocol
     var course_name : String!
     var sub_courseid : String!
     var titlestr : String!
+    var discountstr : String!
+    var discount_amount : Double!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,13 +61,27 @@ class RazorpayViewController: UIViewController,RazorpayPaymentCompletionProtocol
             phoneno = newResult["phone_number"] as! String
         }
         
+        if discountstr == nil || discountstr == ""
+        {
+            discount_amount = Double(amount)
+        }
+        else
+        {
+            let discamt = Double(discountstr)
+            let amt =  Double(amount)
+            let str = (amt! * discamt!) / 100.0
+            discount_amount = amt! - str
+            print(discount_amount)
+        }
+        
         if amount == nil || amount == ""
         {
            amountlab.text = ""
         }
         else
         {
-            amountlab.text = String(format: "Rs. %@/-", amount!)
+            let str = String(discount_amount)
+            amountlab.text = String(format: "Rs. %@/-", str)
         }
         
         self.packagelab.text = self.packagetitle
@@ -89,13 +105,13 @@ class RazorpayViewController: UIViewController,RazorpayPaymentCompletionProtocol
     //Razorpay Payment
     func paylink()
     {
-        let res : Double = (Double(amount)! / 100.0) * Double(tax)!
+        let res : Double = (Double(discount_amount) / 100.0) * Double(tax)!
         print(res)
-        let total : Double = Double(amount)! 
+        let total : Double = Double(discount_amount)
         print(total)
         let totalAmount : Double = total * 100.0
         print(totalAmount)
-        totalamount = String(amount)
+        totalamount = String(discount_amount)
         gstamount = totalAmount
         razorpay = Razorpay.initWithKey("rzp_live_7wwYuQPI9JsCs6", andDelegate: self)
 //        razorpay = Razorpay.initWithKey("rzp_test_XFOs7v57MaFWvW", andDelegate: self)
@@ -117,7 +133,7 @@ class RazorpayViewController: UIViewController,RazorpayPaymentCompletionProtocol
                 "color": "#339933"
             ]
             ] as [String : Any]
-        razorpay.open(options)
+       razorpay.open(options, displayController: self)
     }
     
     func onPaymentSuccess(_ payment_id: String) {

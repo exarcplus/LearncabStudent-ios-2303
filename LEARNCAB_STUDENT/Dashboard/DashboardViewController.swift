@@ -323,7 +323,7 @@ class DashboardViewController: UIViewController,ScrollableGraphViewDataSource,ZR
         {
             let numberOfCellInRow : Int = 1
             let padding : Int = 5
-            let collectionCellWidth : CGFloat = (collectionView.frame.size.width/CGFloat(numberOfCellInRow)) - CGFloat(padding)
+            let collectionCellWidth : CGFloat = (collectionView.frame.size.width) - CGFloat(padding)
             cellwidth = collectionCellWidth
             itemWidth = cellwidth
             //            return CGSize(width: collectionCellWidth , height: collectionCellWidth)
@@ -385,12 +385,13 @@ class DashboardViewController: UIViewController,ScrollableGraphViewDataSource,ZR
         
         let point = CGPoint (x: CGFloat(newPage * pageWidth), y: targetContentOffset.pointee.y)
         targetContentOffset.pointee = point
+         //let timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(self.creditlink), userInfo: nil, repeats: false)
         self.creditlink()
     }
     
     
     
-    func creditlink()
+    @objc func creditlink()
     {
         print(main_courseid)
         let params:[String:String] = [:]

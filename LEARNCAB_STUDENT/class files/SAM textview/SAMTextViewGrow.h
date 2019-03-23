@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-@import MBAutoGrowingTextView;
+
 /**
  UITextView subclass that adds placeholder support like UITextField has.
  */

@@ -61,7 +61,7 @@ class PlaylistViewController: UIViewController, UITableViewDataSource, UITableVi
         Listtable.register(UINib.init(nibName:"QATableViewCell", bundle: nil),forCellReuseIdentifier: "QATableViewCell")
         Listtable.allowMultipleSectionsOpen = false
         Listtable.estimatedRowHeight = 44;
-        Listtable.rowHeight = UITableViewAutomaticDimension
+        Listtable.rowHeight = UITableView.automaticDimension
         
         self.lecturelink()
         self.title = "Book details"
@@ -162,7 +162,7 @@ class PlaylistViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
     {
-        return UITableViewAutomaticDimension;
+        return UITableView.automaticDimension;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
@@ -227,7 +227,7 @@ class PlaylistViewController: UIViewController, UITableViewDataSource, UITableVi
         {
             
         }
-        cell?.selectionStyle = UITableViewCellSelectionStyle.none
+        cell?.selectionStyle = UITableViewCell.SelectionStyle.none
         return cell!
        
     }

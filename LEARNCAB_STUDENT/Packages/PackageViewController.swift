@@ -13,6 +13,7 @@ import ActionSheetPicker_3_0
 import SVProgressHUD
 import Alamofire
 import Razorpay
+import KGModal
 
 class PackageViewController: UIViewController,UICollectionViewDelegate,UICollectionViewDataSource,ZRScrollableTabBarDelegate,iCarouselDelegate,iCarouselDataSource,RazorpayPaymentCompletionProtocol{
  
@@ -36,9 +37,10 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
     var tokenstr : String!
     @IBOutlet var carousel: iCarousel!
     var package_id : String!
+    var promo_codestr : String!
+    var Sponsor : PromoCode!
     
-    
-    
+    var pakage_title : String!
     var amount : String!
     var tax : String!
     var phoneno : String!
@@ -197,7 +199,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         collectionindex = indexPath.item
-        self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: true)
+        self.chapCollectionView.scrollToItem(at: indexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: true)
         self.chapCollectionView.reloadData()
         self.course_id = self.listarr[indexPath.row]["_id"] as! String
         self.droupdownlink()
@@ -285,6 +287,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
         return value
     }
     
+    
 
     func carousel(_ carousel: iCarousel, didSelectItemAt index: Int)
     {
@@ -293,35 +296,82 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
         print(packagestatus)
         if packagestatus == 0
         {
-            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "RazorpayViewController") as! RazorpayViewController
-            mainview.amount = self.packagearr[index]["amount"] as? String
-            mainview.tax = self.packagearr[index]["tax"] as? String
-            mainview.package_id = self.packagearr[index]["_id"] as? String
-            mainview.courseid = self.course_id
-            mainview.sub_courseid = self.sub_course_id
-            mainview.packagetitle = self.packagearr[index]["title"] as? String
-            self.present(mainview, animated:true, completion: nil)
+            if self.packagearr[index]["promocode_status"] as! String == "Yes"{
+                print(self.packagearr[index]["promocode_status"] as! String)
+                Sponsor = Bundle.main.loadNibNamed("PromoCode", owner: self, options: nil)?[0] as! PromoCode
+                //            sponser.layer.zPosition = 2
+                Sponsor.layer.cornerRadius = 5.0
+                Sponsor.layer.masksToBounds = true
+                KGModal.sharedInstance().show(withContentView: Sponsor, andAnimated: true)
+                KGModal.sharedInstance().tapOutsideToDismiss = true
+                amount = self.packagearr[index]["amount"] as? String
+                tax = self.packagearr[index]["tax"] as? String
+                package_id = self.packagearr[index]["_id"] as? String
+                pakage_title = self.packagearr[index]["title"] as? String
+                
+                Sponsor.applybtn.tag = index + 123
+                Sponsor.payBtn.tag = index + 123
+                Sponsor.applybtn.addTarget(self, action: #selector(PackageViewController.applybutton(sender:)), for: UIControl.Event.touchUpInside)
+                Sponsor.payBtn.addTarget(self, action: #selector(PackageViewController.paybutton(sender:)), for: UIControl.Event.touchUpInside)
+            }
+            else{
+                let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "RazorpayViewController") as! RazorpayViewController
+                mainview.amount = self.packagearr[index]["amount"] as? String
+                mainview.tax = self.packagearr[index]["tax"] as? String
+                mainview.package_id = self.packagearr[index]["_id"] as? String
+                mainview.courseid = self.course_id
+                mainview.sub_courseid = self.sub_course_id
+                mainview.packagetitle = self.packagearr[index]["title"] as? String
+                self.present(mainview, animated:true, completion: nil)
             //self.paylink()
+            }
         }
         else{
             
         }
+    }
+    
+    
+    
+    @objc func applybutton(sender:UIButton!)
+    {
+        if Sponsor.PromocodeText.text == ""{
+            let myAlert = UIAlertController(title:"LearnCab", message: "Please Enter Promocode!", preferredStyle: UIAlertController.Style.alert)
+            let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
+            myAlert.addAction(okAction)
+            self.present(myAlert, animated: true, completion: nil)
+            return
+        }else{
+            self.promo_codestr = Sponsor.PromocodeText.text
+            self.package_id = self.packagearr[sender.tag - 123]["_id"] as? String
+            print(packagearr[sender.tag - 123])
+            KGModal.sharedInstance().hide(animated: true)
+            self.promoUpdatelink()
+        }
+        
+    }
+    @objc func paybutton(sender:UIButton!)
+    {
+        KGModal.sharedInstance().hide(animated: true)
+        let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "RazorpayViewController") as! RazorpayViewController
+        mainview.amount = self.packagearr[sender.tag - 123]["amount"] as? String
+        mainview.tax = self.packagearr[sender.tag - 123]["tax"] as? String
+        mainview.package_id = self.packagearr[sender.tag - 123]["_id"] as? String
+        mainview.courseid = self.course_id
+        mainview.sub_courseid = self.sub_course_id
+        mainview.packagetitle = self.packagearr[sender.tag - 123]["title"] as? String
+        self.present(mainview, animated:true, completion: nil)
     }
  
    
     
     @objc func getpackagebutton(sender:UIButton!)
     {
-       
-            let myAlert = UIAlertController(title:"LearnCab", message: "Already registered using Email ID", preferredStyle: UIAlertControllerStyle.alert)
-            
-            let okAction = UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil)
-            
+        let myAlert = UIAlertController(title:"LearnCab", message: "Already registered using Email ID", preferredStyle: UIAlertController.Style.alert)
+        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
             myAlert.addAction(okAction)
             self.present(myAlert, animated: true, completion: nil)
             return
-       
-        
     }
     
 //Droupdown button function
@@ -494,7 +544,7 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
     func onPaymentSuccess(_ payment_id: String) {
         UIAlertView.init(title: "Payment Successful", message: payment_id, delegate: self, cancelButtonTitle: "OK").show()
         paymentid = payment_id
-        self.paymentUpdatelink()
+       
     }
     
     func onPaymentError(_ code: Int32, description str: String) {
@@ -504,20 +554,15 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
     }
     
     
-    func paymentUpdatelink()
+    func promoUpdatelink()
     {
-        print(tokenstr)
-        print(paymentid)
-        print(course_id)
-        print(sub_course_id)
-        print(totalamount)
-        print(student_id)
         print(package_id)
-        
-        let params:[String:String] = ["payment_id":paymentid,"course_id":course_id,"course_level_id":self.sub_course_id,"package_id":package_id,"amount":totalamount,"student_id":student_id]
+        print(promo_codestr)
+       
         SVProgressHUD.show()
-         let kLurl = "\(kBaseURL)store_student_package/?token="
-        Alamofire.request(kLurl+tokenstr+"", method: .post, parameters: params).responseJSON { response in
+        let kLurl = "\(kBaseURL)check_promocode/"+promo_codestr+"/"+package_id
+        let str = "/?token="+tokenstr+"&student_id="+student_id
+        Alamofire.request(kLurl+str, method: .get, parameters: nil).responseJSON { response in
             
             print(response)
             
@@ -527,11 +572,36 @@ class PackageViewController: UIViewController,UICollectionViewDelegate,UICollect
                 let res = dat["result"] as! String
                 if res == "success"
                 {
-                    
+                    if dat["status"] as! Int == 1
+                    {
+                        let str = dat["response"] as! String
+                        let discountstr = dat["discount"] as! String
+                        print(discountstr)
+                        let alert = UIAlertController(title: "LearnCab", message: str + " You got "+discountstr+"% discount", preferredStyle: UIAlertController.Style.alert)
+                        alert.addAction(UIAlertAction(title: "PROCEED", style: UIAlertAction.Style.default, handler: {(action:UIAlertAction!) in
+                            let mainview = kmainStoryboard.instantiateViewController(withIdentifier: "RazorpayViewController") as! RazorpayViewController
+                            mainview.amount = self.amount
+                            mainview.tax = self.tax
+                            mainview.package_id = self.package_id
+                            mainview.courseid = self.course_id
+                            mainview.sub_courseid = self.sub_course_id
+                            mainview.packagetitle = self.pakage_title
+                            mainview.discountstr = discountstr
+                            self.present(mainview, animated:true, completion: nil)
+                        }))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else{
+                        let str = dat["response"] as! String
+                        let myAlert = UIAlertController(title:"LearnCab", message: str, preferredStyle: UIAlertController.Style.alert)
+                        let okAction = UIAlertAction(title: "ok", style: UIAlertAction.Style.default, handler: nil)
+                        myAlert.addAction(okAction)
+                        self.present(myAlert, animated: true, completion: nil)
+                        return
+                    }
                 }
             }
             SVProgressHUD.dismiss()
-            
         }
     }
     

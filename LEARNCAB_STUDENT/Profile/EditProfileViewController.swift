@@ -14,7 +14,7 @@ import AFNetworking
 import SKPhotoBrowser
 import LGSideMenuController
 
-class EditProfileViewController: UIViewController,UIImagePickerControllerDelegate,SKPhotoBrowserDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,PECropViewControllerDelegate,UITextViewDelegate {
+class EditProfileViewController: UIViewController,UIImagePickerControllerDelegate,SKPhotoBrowserDelegate,UIActionSheetDelegate,UINavigationControllerDelegate, CropViewControllerDelegate,UITextViewDelegate {
 
     
     var myclass : MyClass!
@@ -137,7 +137,6 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
             }
         }
 
-
     @IBAction func submitbutton(_ x:AnyObject)
     {
         firstnamestr = firstName.text
@@ -149,98 +148,96 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         self.editlink()
     }
     
-    
     @IBAction func Addbutton(_ x:AnyObject)
     {
-        let actionsheet = KKActionSheet.init(title:nil, delegate:self, cancelButtonTitle:myclass.StringfromKey(Key: "Calncle"), destructiveButtonTitle:nil ,otherButtonTitles:myclass.StringfromKey(Key: "Camera"),myclass.StringfromKey(Key: "Photo Gallery"))
-        actionsheet.show(in: self.view)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let cameraAction = UIAlertAction(title: "Camera", style: .default) { action in
+            self.showCamera()
+        }
+        actionSheet.addAction(cameraAction)
+        let albumAction = UIAlertAction(title: "Photo Library", style: .default) { action in
+            self.openPhotoAlbum()
+        }
+        actionSheet.addAction(albumAction)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { action in }
+        actionSheet.addAction(cancelAction)
+        
+        present(actionSheet, animated: true, completion: nil)
     }
     
+    func showCamera() {
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .camera
+        present(controller, animated: true, completion: nil)
+    }
     
-    // MARK: - Action Sheet
+    func openPhotoAlbum() {
+        let controller = UIImagePickerController()
+        controller.delegate = self
+        controller.sourceType = .photoLibrary
+        present(controller, animated: true, completion: nil)
+    }
     
-    func actionSheet(_ actionSheet: UIActionSheet, clickedButtonAt buttonIndex: Int)
-    {
-        if buttonIndex == 1
-        {
-            let imagePickerController = UIImagePickerController()
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)
-            {
-                imagePickerController.delegate = self
-                imagePickerController.sourceType = UIImagePickerControllerSourceType.camera;
-                imagePickerController.allowsEditing = false
-                UIApplication.shared.statusBarStyle = UIStatusBarStyle.default;
-                self.present(imagePickerController, animated: true, completion: nil)
-                UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
-            }
-        }
-        else if buttonIndex == 2
-        {
-            let imagePickerController = UIImagePickerController()
-            if UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.savedPhotosAlbum)
-            {
-                imagePickerController.delegate = self
-                imagePickerController.sourceType = UIImagePickerControllerSourceType.savedPhotosAlbum;
-                imagePickerController.allowsEditing = false
-                UIApplication.shared.statusBarStyle = UIStatusBarStyle.default;
-                self.present(imagePickerController, animated: true, completion: nil)
-                
-            }
-        }
+    // MARK: - CropView
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage) {
         
     }
     
-    // MARK: - Image Picker Delegate
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
-    {
+    func cropViewController(_ controller: CropViewController, didFinishCroppingImage image: UIImage, transform: CGAffineTransform, cropRect: CGRect) {
+        controller.dismiss(animated: true, completion: nil)
+        self.UploadimageWithImage(image: image, size:CGSize(width: 200, height: 200))
+    }
+    
+    func cropViewControllerDidCancel(_ controller: CropViewController) {
+        controller.dismiss(animated: true, completion: nil)
+        
+    }
+    
+//    // MARK: - Image Picker Delegate
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any])
+//    {
+//        picker .dismiss(animated: true, completion: nil)
+//        let media =  info[UIImagePickerControllerOriginalImage] as? UIImage
+//
+//        let controller = PECropViewController();
+//        controller.delegate = self;
+//        controller.image = media;
+//
+//        // controller.navigationController?.navigationBar.backgroundColor = UIColor.blue
+//        controller.toolbarItems=nil;
+//        let ratio:CGFloat = 2.0 / 2.0;
+//        controller.cropAspectRatio = ratio;
+//
+//        controller.dismiss(animated: true, completion:nil)
+//
+//        let navigationController = UINavigationController.init(rootViewController: controller);
+//        if UIDevice.current.userInterfaceIdiom == .pad
+//        {
+//            var colors = [UIColor]()
+//            colors.append(UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1))
+//            colors.append(UIColor(red: 28/255, green: 154/255, blue: 96/255, alpha: 1))
+//            navigationController.navigationBar.setGradientBackground(colors: colors)
+//            navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet;
+//        }
+//        self.present(navigationController, animated: true, completion: nil)
+//    }
+    
+    // MARK: - UIImagePickerController delegate methods
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            dismiss(animated: true, completion: nil)
+            return
+        }
         picker .dismiss(animated: true, completion: nil)
-        let media =  info[UIImagePickerControllerOriginalImage] as? UIImage
         
-        let controller = PECropViewController();
-        controller.delegate = self;
-        controller.image = media;
+        let controller = CropViewController()
+        controller.delegate = self
+        controller.image = image
         
-        // controller.navigationController?.navigationBar.backgroundColor = UIColor.blue
-        controller.toolbarItems=nil;
-        let ratio:CGFloat = 2.0 / 2.0;
-        controller.cropAspectRatio = ratio;
-        
-        controller.dismiss(animated: true, completion:nil)
-        
-        let navigationController = UINavigationController.init(rootViewController: controller);
-        if UIDevice.current.userInterfaceIdiom == .pad
-        {
-            var colors = [UIColor]()
-            colors.append(UIColor(red: 18/255, green: 98/255, blue: 151/255, alpha: 1))
-            colors.append(UIColor(red: 28/255, green: 154/255, blue: 96/255, alpha: 1))
-            navigationController.navigationBar.setGradientBackground(colors: colors)
-            navigationController.modalPresentationStyle = UIModalPresentationStyle.formSheet;
-        }
-        self.present(navigationController, animated: true, completion: nil)
+        let navController = UINavigationController(rootViewController: controller)
+        present(navController, animated: true, completion: nil)
     }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController)
-    {
-        picker .dismiss(animated: true, completion: nil)
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
-    }
-    
-    func cropViewController(_ controller: PECropViewController!, didFinishCroppingImage croppedImage: UIImage!)
-    {
-        let ims:UIImage=croppedImage
-        controller.dismiss(animated: true, completion:nil)
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
-        //        self.UploadimageWithImage(image: ims, size:CGSizeMake(200,200))
-        self.UploadimageWithImage(image: ims, size: CGSize(width: 200, height: 200))
-    }
-    
-    func cropViewControllerDidCancel(_ controller: PECropViewController!)
-    {
-        
-        controller.dismiss(animated: true, completion:nil)
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent;
-    }
-    
     
     func UploadimageWithImage(image:UIImage,size:CGSize)
     {
@@ -258,9 +255,10 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
         let timestr = form1.string(from: date as Date);
         let datearr = datesstr.components(separatedBy: "-") as NSArray
         let timearr = timestr.components(separatedBy: ":") as NSArray
-        let imageData = UIImageJPEGRepresentation(newimage,0.7);
+        let imageData = image.jpegData(compressionQuality: 0.75)
         let imagename = String(format:"pic_%@_%@_%@_%@_%@_%@.png",datearr.object(at: 0) as! String,datearr.object(at: 1) as! String,datearr.object(at: 2) as! String,timearr.object(at: 0) as! String,timearr.object(at: 1) as! String,timearr.object(at: 2) as! String)
         let kLurl = "\(kBaseURL)upload_profile_picture"
+        
         Alamofire.upload(multipartFormData: { (multipartFormData) in
             multipartFormData.append(imageData!, withName: "profilePicture", fileName: imagename, mimeType: "image/jpeg")
         }, to:"https://apps.learncab.com/upload_profile_picture")
@@ -273,7 +271,6 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                 })
                 
                 upload.responseJSON { response in
-                    //self.delegate?.showSuccessAlert()
                     print(response.request)  // original URL request
                     print(response.response) // URL response
                     print(response.data)     // server data
@@ -283,15 +280,11 @@ class EditProfileViewController: UIViewController,UIImagePickerControllerDelegat
                         print("JSON: \(JSON)")
                         self.vimage = String(format:"https://apps.learncab.com/student_images/%@",imagename)
                         self.imgview.image = image
-                        
                     }
                 }
-                
             case .failure(let encodingError):
-                //self.delegate?.showFailAlert()
                 print(encodingError)
             }
-            
         }
     }
     

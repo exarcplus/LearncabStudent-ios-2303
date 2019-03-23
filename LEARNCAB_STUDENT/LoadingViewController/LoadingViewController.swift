@@ -8,6 +8,7 @@
 
 import UIKit
 import LGSideMenuController
+import SystemConfiguration
 
 class LoadingViewController: UIViewController {
  
@@ -25,11 +26,21 @@ class LoadingViewController: UIViewController {
             })
   
         })
-        let dispatchTime3: DispatchTime = DispatchTime.now() + Double(Int64(3.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
-        DispatchQueue.main.asyncAfter(deadline: dispatchTime3, execute: {
-          self.Loadview()
+        if self.isInternetAvailable()
+        {
+            let dispatchTime3: DispatchTime = DispatchTime.now() + Double(Int64(3.5 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: dispatchTime3, execute: {
+                 self.Loadview()
+            })
            
-        })
+        }else{
+             self.view.makeToast("No Internet Connection", duration: 3.0, position: .bottom)
+            let dispatchTime3: DispatchTime = DispatchTime.now() + Double(Int64(3.0 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)
+            DispatchQueue.main.asyncAfter(deadline: dispatchTime3, execute: {
+                 exit (0);
+            })
+        }
+       
         // Do any additional setup after loading the view.
     }
 
@@ -60,7 +71,7 @@ class LoadingViewController: UIViewController {
             appDelegate.SideMenu.setLeftViewEnabledWithWidth(240, presentationStyle: .slideAbove, alwaysVisibleOptions: [])
             appDelegate.SideMenuView = kmainStoryboard.instantiateViewController(withIdentifier: "SideMenuViewController") as! SideMenuViewController
             appDelegate.SideMenu.leftViewStatusBarVisibleOptions = .onAll
-            appDelegate.SideMenu.leftViewStatusBarStyle = .default
+            appDelegate.SideMenu.leftViewStatusBarStyle = .lightContent
             var rect = appDelegate.SideMenuView.view.frame;
             rect.size.width = 240;
             appDelegate.SideMenuView.view.frame = rect
@@ -71,14 +82,26 @@ class LoadingViewController: UIViewController {
         
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = flags.contains(.reachable)
+        let needsConnection = flags.contains(.connectionRequired)
+        //   print(isReachable && !needsConnection)
+        return (isReachable && !needsConnection)
     }
-    */
 
 }

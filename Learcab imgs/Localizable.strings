@@ -1,0 +1,80 @@
+/* 
+  Localize.strings
+  Finzplus
+
+  Created by Exarcplus on 26/02/16.
+  Copyright © 2016 Exarcplus. All rights reserved.
+*/
+/*************************** Common Terms ***************************/
+"bridgeat"="Bridge";
+"errorinretrive"="Error in Retrieving data.";
+"checkinternet"="Check your Internet Connection.";
+"ok"="Ok";
+"yes"="Yes";
+"no"="No";
+"FCfielderroe"="Enter";
+"FCfielderros"="Select";
+"FCfieldempty"="Fields can't be Empty";
+"Edit"="Edit";
+"Save"="Save";
+"Cancel"="Cancel";
+"Changepicture"="Change Picture";
+"Photogalary"="Photo Gallery";
+"Camera"="Camera";
+"Errorwhieleupload"="Error during upload. Try Again!";
+"Imagesuccess"="Profile image successfully uploaded.";
+"done"="Done";
+"ACsend"="SEND";
+"norecords_found"="No Records Found";
+
+/*************************** Login View ***************************/
+"loginwith"="LOGIN WITH";
+"username"="Username";
+"password"="Password";
+"login"="LOGIN";
+"or"="or";
+"loginwithF"="              Login with Facebook";
+"loginwithG"="              Login with Google+";
+"forgotpassword"="FORGOT PASSWORD?";
+"createanaccount"="CREATE AN ACCOUNT";
+"entvalidusernameor"="Enter valid Username or Password.";
+"Contactadmin"="Contact admin for login.";
+"Alreadylogin"="Already you have logged in with another device.";
+"restpass"="RESET PASSWORD";
+"Your_email"="Your email is already registerd to Bridgeat.";
+"Entered_email"="Entered email is already registerd with Bridgeat.";
+"restsub"="Please enter your email address and we’ll send an email to reset your password.If you don’t find the email in your inbox, please check your spam, social or other folders.";
+"logoufailed"="Logout failed!";
+
+/*************************** Register View ***************************/
+"register"="REGISTER";
+"fullname"="Full Name";
+"emailaddress"="Email Address";
+"password"="Password";
+"cpassword"="Confirm Password";
+"address"="Address";
+"vehiclenum"="Vehicle Number";
+"vehiclemodel"="Vehicle Model";
+"vehiclecolor"="Vehicle Color";
+"submit"="SUBMIT";
+"Entervalid"="Enter valid E-mail";
+"Enteredemailis"="Email address is already registered with Bridgeat.";
+"passwordnotmatch"="Password does not match.";
+"passwordlength"="Minimum 6 characters";
+"lastnote"="Note: We will send you an email and click link on that mail for confrimation. If the email is not avilable in inbox folder check it in spam folder.";
+"forgotenteremail"="Entered email doesn't registered.";
+"emailsendsuccc"="Email to reset your password has been successfully sent to";
+
+
+/*************************** Forgot Password ***************************/
+"resetpass"="FORGOT PASSWORD";
+"resetpass_tips"="Please enter your email address and we’ll send an email to reset your password. If you don’t find the email in your inbox, please check your spam, social or other folders.";
+"resetpass_success"="A link to reset your password has been sent to registered mail address.";
+"reset_failed"="No account exist for";
+
+/*************************** Home View ***************************/
+"staratour"="START A TOUR";
+"stopatour"="STOP A TOUR";
+"tripdetails"="TRIP DETAILS";
+
+/*************************** Distance ***************************/
